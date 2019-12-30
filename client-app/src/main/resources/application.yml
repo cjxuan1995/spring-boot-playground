@@ -1,0 +1,19 @@
+server:
+  port: 8086
+  servlet:
+    context-path: /client
+security:
+  oauth2:
+    client:
+      client-id: client
+      client-secret: password
+      access-token-uri: http://localhost:8081/oauth/token
+      user-authorization-uri: http://localhost:8081/oauth/authorize
+      registered-redirect-uri: http://localhost:8086/client/login
+    resource:
+      user-info-uri: http://localhost:8081/user/me
+
+spring:
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/testDB
