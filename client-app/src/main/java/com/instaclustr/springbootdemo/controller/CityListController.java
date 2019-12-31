@@ -3,7 +3,7 @@ package com.instaclustr.springbootdemo.controller;
 
 import com.instaclustr.springbootdemo.config.InstaclustrConfig;
 import com.instaclustr.springbootdemo.domain.City;
-import com.instaclustr.springbootdemo.mapper.CityMapper;
+import com.instaclustr.springbootdemo.service.CityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +19,14 @@ import java.util.Map;
 
 @RestController
 public class CityListController {
-    private CityMapper cityMapper;
+    private CityService cityService;
     private InstaclustrConfig config;
 
     private static final Logger logger = LoggerFactory.getLogger(CityListController.class);
 
     @Autowired
-    public CityListController(final CityMapper cityMapper, final InstaclustrConfig config) {
-        this.cityMapper = cityMapper;
+    public CityListController(final CityService cityService, final InstaclustrConfig config) {
+        this.cityService = cityService;
         this.config = config;
     }
 
@@ -34,7 +34,7 @@ public class CityListController {
     public List<City> getCitiesByState(@RequestParam String state, Principal user){
         System.out.println(config.getCustomConfig());
         logger.info("Get cities by state request received. Requested state: " + state + " user: " + user.getName());
-        return cityMapper.findByState(state);
+        return cityService.getCitiesByState(state);
     }
 
     @RequestMapping("/heartbeat")
